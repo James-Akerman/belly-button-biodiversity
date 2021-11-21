@@ -13,7 +13,7 @@ function optionChanged(){
   let top_ten_sample_otu_ids = filteredSampleData.otu_ids.map(entry => 'OTU ' + entry).slice(0, 10).reverse();
   let top_ten_sample_otu_labels = filteredSampleData.otu_labels.slice(0, 10).reverse();
   // Create a trace object
-  let trace1 = {
+  let bar_trace1 = {
     x: top_ten_sample_values,
     y: top_ten_sample_otu_ids,
     text: top_ten_sample_otu_labels,
@@ -21,9 +21,9 @@ function optionChanged(){
     orientation: "h"
   };
   // Create a data array with the above trace
-  let plot_data = [trace1];
+  let bar_data = [bar_trace1];
   // Use `layout` to define a title
-  Plotly.newPlot("bar", plot_data);
+  Plotly.newPlot("bar", bar_data);
 
   // DEMOGRAPHIC INFO
   filteredMetaData = metadata.filter(entry => entry.id === parseInt(dataset))[0];
@@ -35,8 +35,29 @@ function optionChanged(){
     cell.text(`${key}: ${value}`);
   };
 
+  // BUBBLE CHART
+  var bubble_trace1 = {
+      x: filteredSampleData.otu_ids,
+      y: filteredSampleData.sample_values,
+      mode: 'markers',
+      marker: {
+        size: filteredSampleData.sample_values,
+        color: filteredSampleData.otu_ids,
+        colorscale: 'Earth'
+      }
   };
+  var bubble_data = [bubble_trace1];
+  var bubble_layout = {
+      showlegend: false,
+      xaxis: {
+        title: 'OTU ID'
+      }
+  };
+  Plotly.newPlot('bubble', bubble_data, bubble_layout);
 
+
+
+};
 
 
 d3.json("samples.json").then((importedData) => {
@@ -55,4 +76,5 @@ d3.json("samples.json").then((importedData) => {
         .property("value", sample);
   });
   optionChanged();
+
 });
