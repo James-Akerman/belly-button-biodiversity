@@ -1,15 +1,17 @@
 // The option changed function
 function optionChanged(){
+  // GET THE SELECT OPTION VALUE
   let dropdownMenu = d3.select("#selDataset");
   // Assign the value of the dropdown menu option to a variable
   let dataset = dropdownMenu.property("value");
   // When the value in the select box changes, then change the horizontal bar chart
-  filteredData = samples.filter(entry => entry.id === dataset)[0];
-  // CREATE THE HORIZONTAL BAR GRAPH
+  filteredSampleData = samples.filter(entry => entry.id === dataset)[0];
+  
+  // HORIZONTAL BAR GRAPH
   // Select top 10 sample values
-  let top_ten_sample_values = filteredData.sample_values.slice(0, 10).reverse();
-  let top_ten_sample_otu_ids = filteredData.otu_ids.map(entry => 'OTU ' + entry).slice(0, 10).reverse();
-  let top_ten_sample_otu_labels = filteredData.otu_labels.slice(0, 10).reverse();
+  let top_ten_sample_values = filteredSampleData.sample_values.slice(0, 10).reverse();
+  let top_ten_sample_otu_ids = filteredSampleData.otu_ids.map(entry => 'OTU ' + entry).slice(0, 10).reverse();
+  let top_ten_sample_otu_labels = filteredSampleData.otu_labels.slice(0, 10).reverse();
   // Create a trace object
   let trace1 = {
     x: top_ten_sample_values,
@@ -21,11 +23,20 @@ function optionChanged(){
   // Create a data array with the above trace
   let plot_data = [trace1];
   // Use `layout` to define a title
-  let layout = {
-    title: "Basic horizontal barplot",
+  Plotly.newPlot("bar", plot_data);
+
+  // DEMOGRAPHIC INFO
+  filteredMetaData = metadata.filter(entry => entry.id === parseInt(dataset))[0];
+  // console.log(filteredMetaData);
+  let tbody = d3.select("#sample-metadata").append("tbody");
+  for (const [key, value] of Object.entries(filteredMetaData)) {
+    let row = tbody.append("tr");
+    var cell = row.append("td");
+    cell.text(`${key}: ${value}`);
   };
-  Plotly.newPlot("bar", plot_data, layout);
+
   };
+
 
 
 d3.json("samples.json").then((importedData) => {
