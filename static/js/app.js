@@ -25,9 +25,13 @@ function optionChanged(){
   // Use `layout` to define a title
   Plotly.newPlot("bar", bar_data);
 
-  // DEMOGRAPHIC INFO
+  // DEMOGRAPHIC INFO (METADATA)
   filteredMetaData = metadata.filter(entry => entry.id === parseInt(dataset))[0];
-  // console.log(filteredMetaData);
+  // filteredMetaData = metadata.filter(entry => entry.id === parseInt('1234'))[0];
+  // Add new metadata
+    // Remove any previous metadata
+    // d3.select("tbody").html("");
+    d3.selectAll("tr").html("");
   let tbody = d3.select("#sample-metadata").append("tbody");
   for (const [key, value] of Object.entries(filteredMetaData)) {
     let row = tbody.append("tr");
@@ -58,39 +62,40 @@ function optionChanged(){
 
   // GAUGE CHART
   console.log(wfreq = filteredMetaData["wfreq"]); 
-  wfreq = filteredMetaData["wfreq"];
+  wfreq = parseInt(filteredMetaData["wfreq"]);
   var new_path = "";
- switch (wfreq = filteredMetaData["wfreq"]) {
-          case wfreq === 0:
-              new_path =  'M 0.50 0.49 L 0.38 0.55 L 0.51 0.52 Z';
-              break;
-            case wfreq === 1:
-              new_path = 'M 0.50 0.49 L 0.38 0.63 L 0.51 0.52 Z';
-              break;
-            case wfreq === '2':
-              new_path = 'M 0.50 0.49 L 0.42 0.68 L 0.51 0.52 Z';
-              break;
-            case wfreq === 3:
-              new_path = 'M 0.50 0.49 L 0.46 0.72 L 0.52 0.5 Z';
-              break;
-            case wfreq === 4:
-              new_path = 'M 0.50 0.49 L 0.50 0.72 L 0.52 0.5 Z';
-              break;
-            case wfreq === 5:
-              new_path = 'M 0.50 0.51 L 0.54 0.72 L 0.52 0.5 Z';
-              break;
-            case wfreq === 6:
-              new_path =  'M 0.51 0.53 L 0.57 0.68 L 0.52 0.5 Z';
-              break;
-            case wfreq === 7:
-              new_path = 'M 0.51 0.53 L 0.60 0.62 L 0.52 0.5 Z';
-              break;
-            case wfreq === 8:
-              new_path = 'M 0.52 0.53 L 0.63 0.55 L 0.52 0.5 Z'
-              break;
-          };
+  // // 0-1
+          // path: 'M 0.50 0.49 L 0.38 0.55 L 0.51 0.52 Z',
+          // // 1-2
+          // // path: 'M 0.50 0.49 L 0.38 0.63 L 0.51 0.52 Z',
+          // // 2-3
+          // // path: 'M 0.50 0.49 L 0.42 0.68 L 0.51 0.52 Z',
+          // // 3-4
+          // //  path: 'M 0.50 0.49 L 0.46 0.72 L 0.52 0.5 Z',
+          // // 4-5
+          // // path: 'M 0.50 0.49 L 0.50 0.72 L 0.52 0.5 Z',
+          // // 5-6
+          // // path: 'M 0.50 0.51 L 0.54 0.72 L 0.52 0.5 Z',
+          // // 6-7
+          // // path: 'M 0.51 0.53 L 0.57 0.68 L 0.52 0.5 Z',
+          // // 7-8
+          // // path: 'M 0.51 0.53 L 0.60 0.62 L 0.52 0.5 Z',
+          // // 8-9
+          // // path: 'M 0.52 0.53 L 0.63 0.55 L 0.52 0.5 Z',
+  if (wfreq === 0){new_path = 'M 0.50 0.49 L 0.38 0.55 L 0.51 0.52 Z';}
+  else if (wfreq === 1){new_path = 'M 0.50 0.49 L 0.38 0.63 L 0.51 0.52 Z';}
+  else if (wfreq === 2){new_path = 'M 0.50 0.49 L 0.42 0.68 L 0.51 0.52 Z';}
+  else if ( wfreq === 3){new_path = 'M 0.50 0.49 L 0.46 0.72 L 0.52 0.5 Z';}
+  else if (wfreq === 4){new_path = 'M 0.50 0.49 L 0.50 0.72 L 0.52 0.5 Z';}
+  else if (wfreq === 5){new_path = 'M 0.50 0.51 L 0.54 0.72 L 0.52 0.5 Z';}
+  else if (wfreq === 6){new_path = 'M 0.51 0.53 L 0.57 0.68 L 0.52 0.5 Z';}
+  else if (wfreq === 7){new_path = 'M 0.51 0.53 L 0.60 0.62 L 0.52 0.5 Z';}
+  else if (wfreq === 8){new_path = 'M 0.52 0.53 L 0.63 0.55 L 0.52 0.5 Z'}
+  else{
+    new_path = 'M 0.50 0.51 L 0.50 0.3 L 0.51 0.51 Z';
+  };
 
-      console.log(new_path);
+  console.log(new_path);
 
     gauge_data = [{
       values: [45, 5, 5, 5, 5, 5, 5, 5, 5,5],
@@ -125,6 +130,8 @@ function optionChanged(){
     title: { 
       text: "Belly Button Washing Frequency".bold() + "<br>" + 'Scrubs per Week', 
     },
+    width: 700,
+    height: 700,
     shapes: [
         {
           path: new_path,
@@ -147,13 +154,24 @@ function optionChanged(){
           // // path: 'M 0.51 0.53 L 0.60 0.62 L 0.52 0.5 Z',
           // // 8-9
           // // path: 'M 0.52 0.53 L 0.63 0.55 L 0.52 0.5 Z',
-
           fillcolor: 'red',
           line: {
-            width: 0.4
-          },
-        }
-    ],
+            width: 0
+          }
+        },
+        {
+          type: 'circle',
+          x0: 0.48,
+          y0: 0.48,
+          x1: 0.52,
+          y1: 0.52,
+          fillcolor: 'red',
+          line: {
+            width: 0
+          }
+        },
+
+    ]
     }
   Plotly.newPlot('gauge', gauge_data, gauge_layout);
 
