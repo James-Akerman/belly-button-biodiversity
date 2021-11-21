@@ -57,74 +57,44 @@ function optionChanged(){
   Plotly.newPlot('bubble', bubble_data, bubble_layout);
 
   // GAUGE CHART
-    // let gauge_data = [{
-    // type: "pie",
-    // showlegend: false,
-    // hole: 0.4,
-    // rotation: 90,
-    // values: [40,5,5,5,5,5,5,5,5],
-    // labels: ["","0-1", "1-2", "2-3", "3-4", "4-5", "5-6", "7-8", "8-9"],
-    // direction: "clockwise",
-    // marker: {
-    //   colors: [
-    //         'rgb(255, 255, 255)',
-    //         'rgb(232,226,202)',
-    //         'rgb(226,210,172)',
-    //         'rgb(223,189,139)',
-    //         'rgb(223,162,103)',
-    //         'rgb(226,126,64)',
-    //         'rgb(226,126,64)',
-    //         'rgb(226,126,64)',
-    //         'rgb(226,126,64)'
-    //   ]
-    // },
-    // hoverinfo: 'skip',
-    // textposition: 'none',
-    // }];
+  console.log(wfreq = filteredMetaData["wfreq"]); 
+  wfreq = filteredMetaData["wfreq"];
+  var new_path = "";
+ switch (wfreq = filteredMetaData["wfreq"]) {
+          case wfreq === 0:
+              new_path =  'M 0.50 0.49 L 0.38 0.55 L 0.51 0.52 Z';
+              break;
+            case wfreq === 1:
+              new_path = 'M 0.50 0.49 L 0.38 0.63 L 0.51 0.52 Z';
+              break;
+            case wfreq === '2':
+              new_path = 'M 0.50 0.49 L 0.42 0.68 L 0.51 0.52 Z';
+              break;
+            case wfreq === 3:
+              new_path = 'M 0.50 0.49 L 0.46 0.72 L 0.52 0.5 Z';
+              break;
+            case wfreq === 4:
+              new_path = 'M 0.50 0.49 L 0.50 0.72 L 0.52 0.5 Z';
+              break;
+            case wfreq === 5:
+              new_path = 'M 0.50 0.51 L 0.54 0.72 L 0.52 0.5 Z';
+              break;
+            case wfreq === 6:
+              new_path =  'M 0.51 0.53 L 0.57 0.68 L 0.52 0.5 Z';
+              break;
+            case wfreq === 7:
+              new_path = 'M 0.51 0.53 L 0.60 0.62 L 0.52 0.5 Z';
+              break;
+            case wfreq === 8:
+              new_path = 'M 0.52 0.53 L 0.63 0.55 L 0.52 0.5 Z'
+              break;
+          };
 
-    // let gauge_layout = {
-    //   title: "Belly Button Washing Frequency".bold() + "<br>" + 'Scrubs per Week',
-    // };
-
-    // let gauge_data = [
-    //   {
-    //     domain: { x: [0, 1], y: [0, 1] },
-    //     // value: 2,
-    //     title: { text: "Belly Button Washing Frequency".bold() + "<br>" + 'Scrubs per Week' },
-    //     type: "indicator",
-    //     mode: "gauge",
-    //     gauge: {
-    //       axis: { range: [0, 9], showticklabels: false },
-    //       steps: [
-    //         {names: ["0-1", "1-2", "2-3", "3-4", "4-5", "5-6", "7-8", "8-9"]},
-    //         { range: [0, 1], color: "blue"},
-    //         { range: [1, 2], color: "red" },
-    //         { range: [2, 3], color: "green" },
-    //         { range: [3, 4], color: "yellow" },
-    //         { range: [4, 5], color: "orange" },
-    //         { range: [5, 6], color: "pink" },
-    //         { range: [6, 7], color: "lightblue" },
-    //         { range: [7, 8], color: "purple" },
-    //         { range: [8, 9], color: "lightgreen" },
-    //       ],
-    //       threshold: {
-    //         line: { color: "red", width: 4 },
-    //         thickness: 0.75,
-    //         value: 490
-    //       },
-    //       labels: ["0-1", "1-2", "2-3", "3-4", "4-5", "5-6", "7-8", "8-9"],
-    //     }
-    //   }
-    // ];
-    
-    // let gauge_layout = { 
-    //   width: 600, 
-    //   height: 450, 
-    //   margin: { t: 0, b: 0 } };
+      console.log(new_path);
 
     gauge_data = [{
-      values: [50, 10, 10, 10, 10, 10],
-      labels: [" ", "Debug", "Info", "Warn", "Error", "Fatal"],
+      values: [45, 5, 5, 5, 5, 5, 5, 5, 5,5],
+      labels: [" ", "0-1", "1-2", "2-3", "3-4", "4-5","5-6","6-7","7-8","8-9"],
       marker: {
           'colors': [
               'rgb(255, 255, 255)',
@@ -132,10 +102,15 @@ function optionChanged(){
               'rgb(226,210,172)',
               'rgb(223,189,139)',
               'rgb(223,162,103)',
+              'rgb(226,126,64)',
+              'rgb(232,226,202)',
+              'rgb(226,210,172)',
+              'rgb(223,189,139)',
+              'rgb(223,162,103)',
               'rgb(226,126,64)'
           ]
       },
-      domain: {"x": [0, 0.48]},
+      domain: {"x": [0, 1]},
       name: "Gauge",
       hole: .3,
       type: "pie",
@@ -146,24 +121,32 @@ function optionChanged(){
       textposition: "inside",
       hoverinfo: "none"
   }]
-
   gauge_layout = {
     title: { 
       text: "Belly Button Washing Frequency".bold() + "<br>" + 'Scrubs per Week', 
-      x: 0.1
     },
     shapes: [
         {
-          // Debug
-          path: 'M 0.235 0.5 L 0.14 .60 L 0.245 0.5 Z',
-          // Info
-          // path: 'M 0.235 0.5 L 0.19 0.65 L 0.245 0.5 Z',
-          // Warn
-          // path: 'M 0.235 0.5 L 0.24 0.72 L 0.245 0.5 Z',
-          // Error
-          // path: 'M 0.235 0.5 L 0.29 0.65 L 0.245 0.5 Z',
-          // Fatal
-          // path: 'M 0.235 0.5 L 0.35 0.57 L 0.245 0.5 Z',
+          path: new_path,
+          
+          // // 0-1
+          // path: 'M 0.50 0.49 L 0.38 0.55 L 0.51 0.52 Z',
+          // // 1-2
+          // // path: 'M 0.50 0.49 L 0.38 0.63 L 0.51 0.52 Z',
+          // // 2-3
+          // // path: 'M 0.50 0.49 L 0.42 0.68 L 0.51 0.52 Z',
+          // // 3-4
+          // //  path: 'M 0.50 0.49 L 0.46 0.72 L 0.52 0.5 Z',
+          // // 4-5
+          // // path: 'M 0.50 0.49 L 0.50 0.72 L 0.52 0.5 Z',
+          // // 5-6
+          // // path: 'M 0.50 0.51 L 0.54 0.72 L 0.52 0.5 Z',
+          // // 6-7
+          // // path: 'M 0.51 0.53 L 0.57 0.68 L 0.52 0.5 Z',
+          // // 7-8
+          // // path: 'M 0.51 0.53 L 0.60 0.62 L 0.52 0.5 Z',
+          // // 8-9
+          // // path: 'M 0.52 0.53 L 0.63 0.55 L 0.52 0.5 Z',
 
           fillcolor: 'red',
           line: {
