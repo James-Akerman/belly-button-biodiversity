@@ -27,11 +27,9 @@ function optionChanged(){
 
   // DEMOGRAPHIC INFO (METADATA)
   filteredMetaData = metadata.filter(entry => entry.id === parseInt(dataset))[0];
-  // filteredMetaData = metadata.filter(entry => entry.id === parseInt('1234'))[0];
+  // Remove any previous metadata
+  d3.selectAll("tr").html("");
   // Add new metadata
-    // Remove any previous metadata
-    // d3.select("tbody").html("");
-    d3.selectAll("tr").html("");
   let tbody = d3.select("#sample-metadata").append("tbody");
   for (const [key, value] of Object.entries(filteredMetaData)) {
     let row = tbody.append("tr");
@@ -54,34 +52,13 @@ function optionChanged(){
   var bubble_data = [bubble_trace1];
   var bubble_layout = {
       showlegend: false,
-      xaxis: {
-        title: 'OTU ID'
-      }
+      xaxis: { title: 'OTU ID' }
   };
   Plotly.newPlot('bubble', bubble_data, bubble_layout);
 
   // GAUGE CHART
-  console.log(wfreq = filteredMetaData["wfreq"]); 
   wfreq = parseInt(filteredMetaData["wfreq"]);
   var new_path = "";
-  // // 0-1
-          // path: 'M 0.50 0.49 L 0.38 0.55 L 0.51 0.52 Z',
-          // // 1-2
-          // // path: 'M 0.50 0.49 L 0.38 0.63 L 0.51 0.52 Z',
-          // // 2-3
-          // // path: 'M 0.50 0.49 L 0.42 0.68 L 0.51 0.52 Z',
-          // // 3-4
-          // //  path: 'M 0.50 0.49 L 0.46 0.72 L 0.52 0.5 Z',
-          // // 4-5
-          // // path: 'M 0.50 0.49 L 0.50 0.72 L 0.52 0.5 Z',
-          // // 5-6
-          // // path: 'M 0.50 0.51 L 0.54 0.72 L 0.52 0.5 Z',
-          // // 6-7
-          // // path: 'M 0.51 0.53 L 0.57 0.68 L 0.52 0.5 Z',
-          // // 7-8
-          // // path: 'M 0.51 0.53 L 0.60 0.62 L 0.52 0.5 Z',
-          // // 8-9
-          // // path: 'M 0.52 0.53 L 0.63 0.55 L 0.52 0.5 Z',
   if (wfreq === 0){new_path = 'M 0.50 0.49 L 0.38 0.55 L 0.51 0.52 Z';}
   else if (wfreq === 1){new_path = 'M 0.50 0.49 L 0.38 0.63 L 0.51 0.52 Z';}
   else if (wfreq === 2){new_path = 'M 0.50 0.49 L 0.42 0.68 L 0.51 0.52 Z';}
@@ -94,26 +71,16 @@ function optionChanged(){
   else{
     new_path = 'M 0.50 0.51 L 0.50 0.3 L 0.51 0.51 Z';
   };
-
-  console.log(new_path);
-
     gauge_data = [{
       values: [45, 5, 5, 5, 5, 5, 5, 5, 5,5],
       labels: [" ", "0-1", "1-2", "2-3", "3-4", "4-5","5-6","6-7","7-8","8-9"],
       marker: {
-          'colors': [
-              'rgb(255, 255, 255)',
-              'rgb(232,226,202)',
-              'rgb(226,210,172)',
-              'rgb(223,189,139)',
-              'rgb(223,162,103)',
-              'rgb(226,126,64)',
-              'rgb(232,226,202)',
-              'rgb(226,210,172)',
-              'rgb(223,189,139)',
-              'rgb(223,162,103)',
-              'rgb(226,126,64)'
-          ]
+        'colors': [
+            'rgb(255, 255, 255)', 
+            'rgb(232,226,202)', 'rgb(226,210,172)', 'rgb(223,189,139)', 'rgb(223,162,103)', 
+            'rgb(226,126,64)', 'rgb(232,226,202)', 'rgb(226,210,172)',
+            'rgb(223,189,139)', 'rgb(223,162,103)', 'rgb(226,126,64)'
+        ]
       },
       domain: {"x": [0, 1]},
       name: "Gauge",
@@ -127,37 +94,14 @@ function optionChanged(){
       hoverinfo: "none"
   }]
   gauge_layout = {
-    title: { 
-      text: "Belly Button Washing Frequency".bold() + "<br>" + 'Scrubs per Week', 
-    },
+    title: { text: "Belly Button Washing Frequency".bold() + "<br>" + 'Scrubs per Week', },
     width: 700,
     height: 700,
     shapes: [
         {
           path: new_path,
-          
-          // // 0-1
-          // path: 'M 0.50 0.49 L 0.38 0.55 L 0.51 0.52 Z',
-          // // 1-2
-          // // path: 'M 0.50 0.49 L 0.38 0.63 L 0.51 0.52 Z',
-          // // 2-3
-          // // path: 'M 0.50 0.49 L 0.42 0.68 L 0.51 0.52 Z',
-          // // 3-4
-          // //  path: 'M 0.50 0.49 L 0.46 0.72 L 0.52 0.5 Z',
-          // // 4-5
-          // // path: 'M 0.50 0.49 L 0.50 0.72 L 0.52 0.5 Z',
-          // // 5-6
-          // // path: 'M 0.50 0.51 L 0.54 0.72 L 0.52 0.5 Z',
-          // // 6-7
-          // // path: 'M 0.51 0.53 L 0.57 0.68 L 0.52 0.5 Z',
-          // // 7-8
-          // // path: 'M 0.51 0.53 L 0.60 0.62 L 0.52 0.5 Z',
-          // // 8-9
-          // // path: 'M 0.52 0.53 L 0.63 0.55 L 0.52 0.5 Z',
           fillcolor: 'red',
-          line: {
-            width: 0
-          }
+          line: { width: 0 }
         },
         {
           type: 'circle',
@@ -166,15 +110,12 @@ function optionChanged(){
           x1: 0.52,
           y1: 0.52,
           fillcolor: 'red',
-          line: {
-            width: 0
-          }
+          line: { width: 0 }
         },
-
     ]
     }
   Plotly.newPlot('gauge', gauge_data, gauge_layout);
-
+  
 };
 
 
