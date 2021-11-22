@@ -34,7 +34,7 @@ function optionChanged(){
   // Filter the metadata by the selected option value
   filteredMetaData = metadata.filter(entry => entry.id === parseInt(dataset))[0];
   // Remove any previous metadata
-  d3.selectAll("tbody").html("");
+  d3.selectAll("table").html("");
   // Add new metadata
   let tbody = d3.select("#sample-metadata").append("table");
   for (const [key, value] of Object.entries(filteredMetaData)) {
