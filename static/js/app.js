@@ -36,10 +36,10 @@ function optionChanged(){
   // Remove any previous metadata
   d3.selectAll("tbody").html("");
   // Add new metadata
-  let tbody = d3.select("#sample-metadata").append("tbody");
+  let tbody = d3.select("#sample-metadata").append("table");
   for (const [key, value] of Object.entries(filteredMetaData)) {
     let row = tbody.append("tr");
-    var cell = row.append("td");
+    let cell = row.append("td");
     cell.text(`${key}: ${value}`);
   };
 
@@ -166,7 +166,7 @@ function optionChanged(){
   gauge_data = [gauge_trace1];
   // Change the chart layout and add the dial
   gauge_layout = {
-    title: { text: "Belly Button Washing Frequency".bold() + "<br>" + 'Scrubs per Week', },
+    title: { text: "Belly Button Washing Frequency".bold() + "<br>" + 'Scrubs per Week' },
     autosize: false,
     width: 500,
     height: 500,
