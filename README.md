@@ -6,5 +6,10 @@ In this Monash University Data Analytics Boot Camp/Trilogy Education Services ho
 - HTML
 - CSS
 - Javascript
+    - Bootstrap
+    - Plotly.js
+    - D3.js
 
 ## How to run
+- Clone the respository
+- Open Git Bash in the directory and type `python -m http.server` to launch the python server, then go to your local host, e.g `localhost:8000`.
