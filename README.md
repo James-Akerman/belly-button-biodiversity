@@ -1,6 +1,14 @@
 # Belly Button Biodiversity
 
-In this Monash University Data Analytics Boot Camp/Trilogy Education Services homework, I was tased with building an interactive dashboard to explore the [Belly Button Biodiversity dataset](http://robdunnlab.com/projects/belly-button-biodiversity/), which cataloges the microbes that colonise human navels.
+This dashboard explores the [Belly Button Biodiversity dataset](http://robdunnlab.com/projects/belly-button-biodiversity/), which cataloges the microbes that colonise human navels.
+
+![dashboard](images/dashboard.PNG)
+
+<br>
+
+![dashboard changed](images/dashboard-change.PNG)
+
+<br>
 
 ## Tools/Packages used
 - HTML
@@ -9,6 +17,8 @@ In this Monash University Data Analytics Boot Camp/Trilogy Education Services ho
     - Bootstrap
     - Plotly.js
     - D3.js
+
+<br>
 
 ## How to run
 - Clone the respository
